@@ -9,5 +9,4 @@ describe LogUploader do
       uploader.store_dir.should include log.provider
     end
   end
-
 end

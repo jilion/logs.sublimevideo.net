@@ -33,5 +33,4 @@ describe LogsCreator do
       LogsCreator.shift_and_create_logs
     end
   end
-
 end
