@@ -6,9 +6,7 @@ describe EdgecastWrapper do
 
   describe ".logs_filename" do
     it "yields log_filename" do
-      logs_filename = []
-      EdgecastWrapper.logs_filename { |l| logs_filename << l }
-      logs_filename.should eq [log_filename]
+      EdgecastWrapper.logs_filename.should eq [log_filename]
     end
   end
 
@@ -23,9 +21,7 @@ describe EdgecastWrapper do
   pending ".remove_log_file" do
     it "removes log file data" do
       file = EdgecastWrapper.remove_log_file(log_filename)
-      logs_filename = []
-      EdgecastWrapper.logs_filename { |l| logs_filename << l }
-      logs_filename.should be_empty
+      EdgecastWrapper.logs_filename.should be_empty
     end
   end
 end

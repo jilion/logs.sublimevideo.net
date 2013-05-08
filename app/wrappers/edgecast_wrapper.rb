@@ -9,10 +9,7 @@ class EdgecastWrapper
   config_accessor :rsync_server, :user, :password, :logs_path
 
   def self.logs_filename
-    _sftp.dir.foreach(logs_path) do |log_file|
-      next if log_file.name.in? ['.', '..']
-      yield(log_file.name)
-    end
+    _sftp.dir.glob(logs_path, '*.gz').map(&:name)
   end
 
   def self.log_file(filename)
