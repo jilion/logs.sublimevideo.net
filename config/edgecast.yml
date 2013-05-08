@@ -1,7 +1,7 @@
 defaults: &defaults
   rsync_server: rsync.lax.edgecastcdn.net
-  user:         env_var
-  password:     env_var
+  user:         thibaud@jilion.com
+  password:     LmUJXuj7TR7jnHw3vEf38WZJwGW7VaF3EPMh
 
 development:
   <<: *defaults
