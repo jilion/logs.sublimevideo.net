@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+source 'https://8dezqz7z7HWea9vtaFwg@gem.fury.io/me/' # thibaud@jilion.com account
+
 ruby '2.0.0'
 
 gem 'rails', '4.0.0.rc1'
