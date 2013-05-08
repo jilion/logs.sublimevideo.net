@@ -12,6 +12,7 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
+!*.log
 /log/*.log
 /tmp
 
@@ -23,7 +24,6 @@ public/assets
 tmp/restart.txt
 backup.db
 public/uploads
-logfile
 db/*.sqlite3
 db/backups/*
 doc/js/

@@ -1,0 +1,16 @@
+defaults: &defaults
+  rsync_server: rsync.lax.edgecastcdn.net
+  user:         env_var
+  password:     env_var
+
+development:
+  <<: *defaults
+  logs_path: '/test/logs'
+
+test:
+  <<: *defaults
+  logs_path: '/test/logs'
+
+production:
+  <<: *defaults
+  logs_path: '/logs'
