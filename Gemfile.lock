@@ -95,7 +95,7 @@ GEM
       multi_json
     librato-sidekiq (0.1.1)
       sidekiq
-    listen (1.0.3)
+    listen (1.1.0)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
@@ -114,12 +114,12 @@ GEM
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.7)
-    newrelic_rpm (3.6.1.88)
+    newrelic_rpm (3.6.2.96)
     nokogiri (1.5.9)
     oj (2.0.12)
     pg (0.15.1)
     polyglot (0.3.3)
-    pry (0.9.12.1)
+    pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
@@ -186,7 +186,7 @@ GEM
     thor (0.18.1)
     thread_safe (0.1.0)
       atomic
-    tilt (1.4.0)
+    tilt (1.4.1)
     timers (1.1.0)
     treetop (1.4.12)
       polyglot
