@@ -1,4 +1,3 @@
-require 'zlib'
 require 'sidekiq'
 
 class LogReaderWorker
@@ -10,11 +9,12 @@ class LogReaderWorker
   def perform(log_id)
     @log = Log.find(log_id)
     _log_lines do |line|
-      next if index < log.parsed_lines
+      next if index < log.read_lines
       LogLineParserWorker.perform_async(line)
     end
+    log.touch(:read_at)
   ensure
-    log.update_attribute(:parsed_lines, index)
+    log.update_attribute(:read_lines, index)
   end
 
   private

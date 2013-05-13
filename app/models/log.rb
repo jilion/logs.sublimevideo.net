@@ -12,14 +12,14 @@ end
 #
 # Table name: logs
 #
-#  created_at   :datetime
-#  file         :string(255)
-#  id           :integer          not null, primary key
-#  name         :string(255)
-#  parsed_at    :datetime
-#  parsed_lines :integer          default(0)
-#  provider     :string(255)
-#  updated_at   :datetime
+#  created_at :datetime
+#  file       :string(255)
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  provider   :string(255)
+#  read_at    :datetime
+#  read_lines :integer          default(0)
+#  updated_at :datetime
 #
 # Indexes
 #

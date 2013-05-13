@@ -15,19 +15,24 @@ describe LogReaderWorker do
       worker.perform(log.id)
     end
 
-    it "updates parsed_lines when finish" do
-      log.should_receive(:update_attribute).with(:parsed_lines, 10)
+    it "updates read_lines when finish" do
+      log.should_receive(:update_attribute).with(:read_lines, 10)
       worker.perform(log.id)
     end
 
-    it "updates parsed_lines when failed" do
+    it "sets read_at when finish" do
+      log.should_receive(:touch).with(:read_at)
+      worker.perform(log.id)
+    end
+
+    it "updates read_lines when failed" do
       LogLineParserWorker.stub(:perform_async).and_raise
-      log.should_receive(:update_attribute).with(:parsed_lines, 0)
+      log.should_receive(:update_attribute).with(:read_lines, 0)
       expect { worker.perform(log.id) }.to raise_error
     end
 
-    it "skips alreay parsed lines" do
-      log.stub(:parsed_lines) { 5 }
+    it "skips alreay read lines" do
+      log.stub(:read_lines) { 5 }
       LogLineParserWorker.should_receive(:perform_async).exactly(5).times
       worker.perform(log.id)
     end
