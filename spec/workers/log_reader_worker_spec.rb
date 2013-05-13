@@ -11,12 +11,19 @@ describe LogReaderWorker do
     }
 
     it "reads each line of logs and delay parsing" do
-      LogLineParserWorker.should_receive(:perform_async).exactly(10).times
+      LogLineParserWorker.should_receive(:perform_async).exactly(9).times
       worker.perform(log.id)
     end
 
+    it "skips header" do
+      LogLineParserWorker.stub(:perform_async) do |line|
+        line.should_not include '#Fields'
+      end
+       worker.perform(log.id)
+    end
+
     it "updates read_lines when finish" do
-      log.should_receive(:update_attribute).with(:read_lines, 10)
+      log.should_receive(:update_attribute).with(:read_lines, 9)
       worker.perform(log.id)
     end
 
@@ -33,7 +40,7 @@ describe LogReaderWorker do
 
     it "skips alreay read lines" do
       log.stub(:read_lines) { 5 }
-      LogLineParserWorker.should_receive(:perform_async).exactly(5).times
+      LogLineParserWorker.should_receive(:perform_async).exactly(4).times
       worker.perform(log.id)
     end
   end
