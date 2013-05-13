@@ -58,6 +58,11 @@ GEM
     dotenv (0.7.0)
     erubis (2.7.0)
     excon (0.21.0)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
+      railties (>= 3.0.0)
     faraday (0.8.7)
       multipart-post (~> 1.1)
     ffi (1.8.1)
@@ -200,6 +205,7 @@ DEPENDENCIES
   annotate
   carrierwave
   configurator!
+  factory_girl_rails
   fog
   foreman
   guard-rspec
