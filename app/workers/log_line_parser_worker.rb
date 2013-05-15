@@ -9,6 +9,8 @@ class LogLineParserWorker
 
   def perform(line)
     @parsed_line = LogLineParser.new(line)
+    return unless parsed_line.data_request?
+
     _events do |event_key, data|
       StatsHandlerWorker.perform_async(event_key, data)
     end

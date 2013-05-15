@@ -14,7 +14,7 @@ class LogLineParser
     (\d*)\s  # response bytes
     (\S*)\s  # method
     (\S*)\s  # uri-stem
-    (\S*)\s  # uri-query
+    -\s  # uri-query
     (\d*)\s  # duration
     (\d*)\s  # request bytes
     "(.*)"\s # referrer
@@ -49,12 +49,8 @@ class LogLineParser
     _scan[9]
   end
 
-  def uri_query
-    _scan[10]
-  end
-
   def user_agent
-    _scan[14]
+    _scan[13]
   end
 
   def data_request?
@@ -72,7 +68,7 @@ class LogLineParser
   private
 
   def _params
-    @params ||= CGI::parse(uri_query)
+    @params ||= CGI::parse(uri_stem)
   end
 
   def _scan

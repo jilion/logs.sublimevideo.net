@@ -4,6 +4,10 @@ describe LogReaderWorker do
   let(:log) { build_stubbed(:log) }
   let(:worker) { LogReaderWorker.new }
 
+  it "delays job in stats queue" do
+    LogReaderWorker.sidekiq_options_hash['queue'].should eq 'logs'
+  end
+
   describe "#perform" do
     before {
       Log.stub(:find) { log }
