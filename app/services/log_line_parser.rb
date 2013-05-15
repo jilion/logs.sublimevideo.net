@@ -53,7 +53,7 @@ class LogLineParser
   end
 
   def data_request?
-    @data_request ||= uri_stem.include?('//cdn.sublimevideo.net/_.gif') && method == 'GET'
+    @data_request ||= uri_stem.include?('//cdn.sublimevideo.net/_.gif') && method == 'GET' && _params.key?('s')
   end
 
   def site_token
