@@ -21,11 +21,13 @@ class LogReaderWorker
 
   def _log_lines
     @index = -1 # skip header
-    gz = Zlib::GzipReader.new(log.log_file)
-    gz.each_line do |line|
-      line.gsub!(/\n/, '')
-      yield(line)
-      @index += 1
+    log.log_file do |log_file|
+      gz = Zlib::GzipReader.new(log_file)
+      gz.each_line do |line|
+        line.gsub!(/\n/, '')
+        yield(line)
+        @index += 1
+      end
     end
   end
 end

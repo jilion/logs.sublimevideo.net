@@ -13,11 +13,8 @@ class EdgecastWrapper
   end
 
   def self.log_file(filename)
-    log_file = _sftp.file.open(_log_path(filename), "r")
-    tempfile = Tempfile.new(filename, encoding: 'ASCII-8BIT')
-    tempfile.write log_file.read
-    tempfile.flush
-    tempfile
+    sftp_file = _sftp.file.open(_log_path(filename), "r")
+    LogFile.open!(filename, sftp_file.read) { |log_file| yield(log_file) }
   end
 
   def self.remove_log_file(filename)

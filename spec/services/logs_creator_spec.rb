@@ -8,7 +8,7 @@ describe LogsCreator do
   describe ".shift_and_create_logs" do
     before {
       EdgecastWrapper.stub(:logs_filename) { [log_filename] }
-      EdgecastWrapper.stub(:log_file).with(log_filename) { log_file }
+      EdgecastWrapper.stub(:log_file).with(log_filename).and_yield(log_file)
       EdgecastWrapper.stub(:remove_log_file).with(log_filename)
       Log.stub(:create!) { log }
       LogReaderWorker.stub(:perform_async)

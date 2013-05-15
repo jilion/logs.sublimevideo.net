@@ -11,8 +11,9 @@ class LogsCreator
   private
 
   def self._create_log(filename)
-    log_file = EdgecastWrapper.log_file(filename)
-    Log.create!(name: filename, provider: 'edgecast', file: log_file)
+    EdgecastWrapper.log_file(filename) do |log_file|
+      Log.create!(name: filename, provider: 'edgecast', file: log_file)
+    end
   end
 
   def self._remove_log_file(filename)

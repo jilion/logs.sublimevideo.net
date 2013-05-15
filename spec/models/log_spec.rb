@@ -22,8 +22,10 @@ describe Log do
 
   describe "#log_file" do
     it "returns log file" do
-      log.log_file.should be_kind_of(File)
-      log.log_file.size.should eq log_file.size
+      log.log_file do |file|
+        file.should be_kind_of(LogFile)
+        file.size.should eq log_file.size
+      end
     end
   end
 end

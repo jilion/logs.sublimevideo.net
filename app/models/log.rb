@@ -4,7 +4,7 @@ class Log < ActiveRecord::Base
   validates :name, :provider, :file, presence: true
 
   def log_file
-    file.file.to_file
+    LogFile.open!(name, file.file.read) { |log_file| yield(log_file) }
   end
 end
 

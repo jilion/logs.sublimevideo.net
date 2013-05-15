@@ -12,13 +12,11 @@ describe EdgecastWrapper do
 
   describe ".log_file" do
     it "downloads log file" do
-      file = EdgecastWrapper.log_file(log_filename)
-      file.stat.size.should eq log_file.size
-    end
-
-    it "returns Tempfile" do
-      file = EdgecastWrapper.log_file(log_filename)
-      file.should be_kind_of(Tempfile)
+      EdgecastWrapper.log_file(log_filename) do |file|
+        file.should be_kind_of(LogFile)
+        file.size.should eq log_file.size
+        file.path.to_s.should end_with log_filename
+      end
     end
   end
 
