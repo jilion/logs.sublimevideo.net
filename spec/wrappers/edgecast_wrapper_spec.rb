@@ -15,6 +15,11 @@ describe EdgecastWrapper do
       file = EdgecastWrapper.log_file(log_filename)
       file.stat.size.should eq log_file.size
     end
+
+    it "returns Tempfile" do
+      file = EdgecastWrapper.log_file(log_filename)
+      file.should be_kind_of(Tempfile)
+    end
   end
 
   # Commented because it remove file for real... :)
