@@ -8,7 +8,7 @@ module CarrierWave
         config.cache_dir       = Rails.root.join('tmp/uploads')
         config.storage         = :fog
         config.fog_public      = false
-        config.fog_directory   = "#{S3Wrapper.bucket}/logs"
+        config.fog_directory   = S3Wrapper.bucket
         config.fog_attributes  = {}
         config.fog_credentials = {
           provider:              'AWS',

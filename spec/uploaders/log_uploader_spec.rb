@@ -6,7 +6,7 @@ describe LogUploader do
 
   describe "#store_dir" do
     it "namespaces with provider" do
-      uploader.store_dir.should include log.provider
+      uploader.store_dir.should include "logs/#{log.provider}"
     end
   end
 end
