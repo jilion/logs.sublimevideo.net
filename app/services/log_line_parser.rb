@@ -19,8 +19,7 @@ class LogLineParser
     (\d*)\s  # request bytes
     "(.*)"\s # referrer
     "(.*)"\s # user agent
-    (\S*)\s  # customer id
-    "(.*)"   # x-ec_custom-1
+    (\S*)    # customer id
   }x
 
   attr_accessor :line
@@ -54,7 +53,7 @@ class LogLineParser
   end
 
   def data_request?
-    uri_stem.include?('//cdn.sublimevideo.net/_.gif') && method == 'GET'
+    @data_request ||= uri_stem.include?('//cdn.sublimevideo.net/_.gif') && method == 'GET'
   end
 
   def site_token
