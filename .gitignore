@@ -14,7 +14,9 @@
 # Ignore all logfiles and tempfiles.
 !*.log
 /log/*.log
-/tmp
+!tmp
+tmp/*
+!tmp/.keep
 
 ## PROJECT::GENERAL
 coverage
