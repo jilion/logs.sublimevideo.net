@@ -93,20 +93,19 @@ GEM
     honeybadger (1.6.2)
       json
     i18n (0.6.4)
-    json (1.7.7)
+    json (1.8.0)
     librato-metrics (1.0.4)
       aggregate (~> 0.2.2)
       faraday (~> 0.7)
       multi_json
     librato-sidekiq (0.1.1)
       sidekiq
-    listen (1.1.0)
+    listen (1.1.1)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
     lumberjack (1.0.3)
-    mail (2.5.3)
-      i18n (>= 0.4.0)
+    mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     method_source (0.8.1)
@@ -114,7 +113,7 @@ GEM
     minitest (4.7.4)
     multi_json (1.7.3)
     multipart-post (1.2.0)
-    net-scp (1.1.0)
+    net-scp (1.1.1)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
@@ -178,7 +177,7 @@ GEM
       multi_json
       redis (>= 3.0)
       redis-namespace
-    slop (3.4.4)
+    slop (3.4.5)
     sprockets (2.9.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
