@@ -22,11 +22,19 @@ describe LogLineParser do
     subject { LogLineParser.new(line) }
 
     its(:timestamp) { should eq 1368605419 }
-    its(:ip) { should eq '94.250.35.142' }
-    its(:status) { should eq 200 }
-    its(:method) { should eq 'GET' }
     its(:uri_stem) { should include 'http://cdn.sublimevideo.net/a' }
     its(:user_agent) { should eq 'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31' }
+    it { should_not be_data_request }
+  end
+
+  context "request with no filesize" do
+    let(:line) { "1368605176 0 81.215.91.112 - 108.161.243.145 80 TCP_HIT/304 384 GET http://cdn.sublimevideo.net/s/avo5qgqh.js - 0 567 \"-\" \"Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.21 (KHTML, like Gecko) Chrome/25.0.1359.3 Safari/537.21\" 33820" }
+    subject { LogLineParser.new(line) }
+
+    its(:timestamp) { should eq 1368605176 }
+    its(:ip) { should eq '81.215.91.112' }
+    its(:status) { should eq 304 }
+    its(:method) { should eq 'GET' }
     it { should_not be_data_request }
   end
 end

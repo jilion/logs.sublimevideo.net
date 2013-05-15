@@ -7,7 +7,7 @@ class LogLineParser
     (\d*)\s  # timestamp
     (\d*)\s  # time_taken
     (\S*)\s  # client ip
-    (\d*)\s  # filesize
+    (\S*)\s  # filesize
     (\S*)\s  # server ip
     (\d*)\s  # port
     (\S*)\s  # status
