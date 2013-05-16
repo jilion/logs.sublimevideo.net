@@ -29,7 +29,7 @@ if ENV['HEROKU_APP']
     end
     config.server_middleware do |chain|
       chain.add Autoscaler::Sidekiq::Server, heroku, 10, %w[logs]
-      chain.add Autoscaler::Sidekiq::Server, heroku_reader, 300, %w[logs-reader]
+      chain.add Autoscaler::Sidekiq::Server, heroku_reader, 10, %w[logs-reader]
     end
   end
 end
