@@ -28,7 +28,7 @@ class LogReaderWorker
 
   def _gzip_lines
     log.log_file do |log_file|
-      gz = Zlib::GzipReader.new(log_file, internal_encoding: 'ASCII-8BIT')
+      gz = Zlib::GzipReader.new(log_file, encoding: 'iso-8859-1')
       gz.each_line { |line| yield(line) }
     end
   end
