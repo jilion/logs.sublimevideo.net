@@ -1,2 +1,3 @@
-worker: bundle exec sidekiq -C config/sidekiq_cli.yml
+worker: bundle exec sidekiq -c 25 -t 5 -q logs
+worker-reader: bundle exec sidekiq -c 1 -t 60 -q logs-reader
 scheduler: bundle exec rake scheduler:logs_creator_worker

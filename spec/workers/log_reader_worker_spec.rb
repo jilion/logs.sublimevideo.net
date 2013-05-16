@@ -5,7 +5,7 @@ describe LogReaderWorker do
   let(:worker) { LogReaderWorker.new }
 
   it "delays job in stats queue" do
-    LogReaderWorker.sidekiq_options_hash['queue'].should eq 'logs'
+    LogReaderWorker.sidekiq_options_hash['queue'].should eq 'logs-reader'
   end
 
   describe "#perform" do
