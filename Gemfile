@@ -13,6 +13,7 @@ gem 'fog'
 gem 'configurator', github: 'jilion/configurator'
 
 gem 'sidekiq'
+gem 'autoscaler'
 
 gem 'honeybadger'
 gem 'librato-rails', github: 'librato/librato-rails', branch: 'feature/rack_first'

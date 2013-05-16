@@ -46,6 +46,9 @@ GEM
       rake
     arel (4.0.0)
     atomic (1.1.9)
+    autoscaler (0.2.1)
+      heroku-api
+      sidekiq (>= 2.6.1, < 3.0)
     builder (3.1.4)
     carrierwave (0.8.0)
       activemodel (>= 3.2.0)
@@ -89,6 +92,8 @@ GEM
     guard-rspec (3.0.0)
       guard (>= 1.8)
       rspec (~> 2.13)
+    heroku-api (0.3.10)
+      excon (~> 0.21.0)
     hike (1.2.2)
     honeybadger (1.6.2)
       json
@@ -202,6 +207,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  autoscaler
   carrierwave
   configurator!
   factory_girl_rails
