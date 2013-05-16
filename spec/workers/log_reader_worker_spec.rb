@@ -26,13 +26,6 @@ describe LogReaderWorker do
        worker.perform(log.id)
     end
 
-    it "removes \n from line" do
-      LogLineParserWorker.stub(:perform_async) do |line|
-        line.should_not include "\n"
-      end
-       worker.perform(log.id)
-    end
-
     it "updates read_lines when finish" do
       log.should_receive(:update_attribute).with(:read_lines, 9)
       worker.perform(log.id)

@@ -21,10 +21,7 @@ class LogReaderWorker
   def _log_lines
     @index = -1 # skip header
     _gzip_lines do |line|
-      unless index < log.read_lines
-        line.gsub!(/\n/, '')
-        yield(line)
-      end
+      yield(line) if index >= log.read_lines
       @index += 1
     end
   end
