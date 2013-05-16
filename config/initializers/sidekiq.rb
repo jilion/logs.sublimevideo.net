@@ -19,8 +19,7 @@ if ENV['HEROKU_APP']
 
   Sidekiq.configure_client do |config|
     config.client_middleware do |chain|
-      chain.add Autoscaler::Sidekiq::Client, 'logs' => heroku
-      chain.add Autoscaler::Sidekiq::Client, 'logs-reader' => heroku_reader
+      chain.add Autoscaler::Sidekiq::Client, 'logs' => heroku, 'logs-reader' => heroku_reader
     end
   end
 
