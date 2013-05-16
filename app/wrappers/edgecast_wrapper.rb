@@ -28,6 +28,6 @@ class EdgecastWrapper
   end
 
   def self._sftp
-    @sftp ||= Net::SFTP.start(rsync_server, user, password: password, paranoid: false)
+    Net::SFTP.start(rsync_server, user, password: password, paranoid: false)
   end
 end
