@@ -35,5 +35,4 @@ class LogReaderWorker
       gz.each_line { |line| yield(line) }
     end
   end
-
 end
