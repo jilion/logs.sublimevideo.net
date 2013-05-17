@@ -6,7 +6,7 @@ describe EdgecastWrapper, :slow do
 
   describe ".logs_filename" do
     it "yields log_filename" do
-      EdgecastWrapper.logs_filename.should include log_filename
+      EdgecastWrapper.logs_filename.first.should eq log_filename
     end
   end
 
