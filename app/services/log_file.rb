@@ -10,8 +10,9 @@ class LogFile < File
 
   def self.open!(name, content)
     log_file = new(name, content)
-    yield(log_file)
+    result = yield(log_file)
     log_file.delete
+    result
   end
 
   def delete

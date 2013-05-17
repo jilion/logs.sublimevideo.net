@@ -19,5 +19,12 @@ describe LogFile do
       end
       File.exists?(@file.path).should be_false
     end
+
+    it "returns block result" do
+      result = LogFile.open!(name, content) do |file|
+        42
+      end
+      result.should eq 42
+    end
   end
 end

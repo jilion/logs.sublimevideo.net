@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe EdgecastWrapper do
+describe EdgecastWrapper, :slow do
   let(:log_filename) { 'wac_841C_20130420_0050.log.gz' }
   let(:log_file) { fixture_file('wac_841C_20130420_0050.log.gz') }
 
   describe ".logs_filename" do
     it "yields log_filename" do
-      EdgecastWrapper.logs_filename.should eq [log_filename]
+      EdgecastWrapper.logs_filename.should include log_filename
     end
   end
 
