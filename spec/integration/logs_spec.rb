@@ -9,7 +9,7 @@ describe "Logs creation", :slow do
     Log.should have(2).logs
     LogReaderWorker.should have(2).jobs
     LogReaderWorker.drain
-    LogLineParserWorker.should have(35707).jobs
+    LogLineParserWorker.should have_at_least(35707).jobs
     LogLineParserWorker.drain
     StatsHandlerWorker.should have(0).jobs
   end
