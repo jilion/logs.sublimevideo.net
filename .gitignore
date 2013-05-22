@@ -34,6 +34,8 @@ vendor/ruby
 vendor/bundler
 !.bundle
 .env*
+!.env.test
+!.env.development
 uploads
 *.sublime-project
 !.sublime-project

@@ -1,15 +1,12 @@
 require 'tempfile'
 require 'net/sftp'
-require 'configurator'
 
 class EdgecastWrapper
-  include Configurator
-
-  config_file 'edgecast.yml'
-  config_accessor :rsync_server, :user, :password, :logs_path
+  RSYNC_SERVER = 'rsync.lax.edgecastcdn.net'
+  LOGS_PATH = ENV['EDGECAST_LOGS_PATH']
 
   def self.logs_filename
-    _sftp.dir.glob(logs_path, '*.gz').map(&:name).sort
+    _sftp.dir.glob(LOGS_PATH, '*.gz').map(&:name).sort
   end
 
   def self.log_file(filename)
@@ -24,10 +21,10 @@ class EdgecastWrapper
   private
 
   def self._log_path(filename)
-    "#{logs_path}/#{filename}"
+    "#{LOGS_PATH}/#{filename}"
   end
 
   def self._sftp
-    Net::SFTP.start(rsync_server, user, password: password, paranoid: false)
+    Net::SFTP.start(RSYNC_SERVER, ENV['EDGECAST_USER'], password: ENV['EDGECAST_PASSWORD'], paranoid: false)
   end
 end

@@ -10,9 +10,8 @@ gem 'oj'
 gem 'carrierwave'
 gem 'fog'
 
-gem 'configurator', github: 'jilion/configurator'
-
 gem 'sidekiq'
+gem 'sidekiq-limit_fetch'
 gem 'autoscaler'
 
 gem 'honeybadger'
@@ -24,6 +23,7 @@ gem 'net-sftp'
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'dotenv-rails'
 end
 
 group :development do

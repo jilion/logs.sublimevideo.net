@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/jilion/configurator.git
-  revision: 3a8df3f51dea0e414bc9cd86fea1f85b1a30745a
-  specs:
-    configurator (1.0.0)
-      activesupport (>= 3.2.12)
-
-GIT
   remote: git://github.com/librato/librato-rails.git
   revision: 82a95ae54f2ed990135a7b655293107384da2796
   branch: feature/rack_first
@@ -46,9 +39,9 @@ GEM
       rake
     arel (4.0.0)
     atomic (1.1.9)
-    autoscaler (0.2.1)
+    autoscaler (0.3.0)
       heroku-api
-      sidekiq (>= 2.6.1, < 3.0)
+      sidekiq (~> 2.7)
     builder (3.1.4)
     carrierwave (0.8.0)
       activemodel (>= 3.2.0)
@@ -59,8 +52,10 @@ GEM
     connection_pool (1.0.0)
     diff-lcs (1.2.4)
     dotenv (0.7.0)
+    dotenv-rails (0.7.0)
+      dotenv (= 0.7.0)
     erubis (2.7.0)
-    excon (0.21.0)
+    excon (0.22.1)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.2.1)
@@ -92,8 +87,8 @@ GEM
     guard-rspec (3.0.0)
       guard (>= 1.8)
       rspec (~> 2.13)
-    heroku-api (0.3.10)
-      excon (~> 0.21.0)
+    heroku-api (0.3.11)
+      excon (~> 0.22.1)
     hike (1.2.2)
     honeybadger (1.6.2)
       json
@@ -103,9 +98,9 @@ GEM
       aggregate (~> 0.2.2)
       faraday (~> 0.7)
       multi_json
-    librato-sidekiq (0.1.1)
+    librato-sidekiq (0.1.2)
       sidekiq
-    listen (1.1.2)
+    listen (1.1.3)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
@@ -125,7 +120,7 @@ GEM
     net-ssh (2.6.7)
     newrelic_rpm (3.6.2.96)
     nokogiri (1.5.9)
-    oj (2.0.12)
+    oj (2.0.13)
     pg (0.15.1)
     polyglot (0.3.3)
     pry (0.9.12.2)
@@ -165,7 +160,7 @@ GEM
     rspec-expectations (2.13.0)
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.13.1)
-    rspec-rails (2.13.1)
+    rspec-rails (2.13.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
@@ -182,6 +177,8 @@ GEM
       json
       redis (>= 3.0)
       redis-namespace
+    sidekiq-limit_fetch (1.6)
+      sidekiq (>= 2.6.5, < 3)
     slop (3.4.5)
     sprockets (2.9.3)
       hike (~> 1.2)
@@ -209,7 +206,7 @@ DEPENDENCIES
   annotate
   autoscaler
   carrierwave
-  configurator!
+  dotenv-rails
   factory_girl_rails
   fog
   foreman
@@ -227,3 +224,4 @@ DEPENDENCIES
   ruby_gntp
   shoulda-matchers
   sidekiq
+  sidekiq-limit_fetch
