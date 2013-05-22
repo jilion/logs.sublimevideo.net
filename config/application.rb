@@ -15,6 +15,11 @@ require 'dotenv-rails' unless Rails.env.production?
 require 'librato-rails'
 require 'newrelic_rpm'
 
+require 'sidekiq'
+require 'sidekiq/limit_fetch'
+require 'autoscaler/sidekiq'
+require 'autoscaler/heroku_scaler'
+
 module LogsSublimeVideo
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

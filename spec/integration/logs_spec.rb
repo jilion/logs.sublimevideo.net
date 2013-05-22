@@ -1,7 +1,11 @@
 require 'spec_helper'
 
 describe "Logs creation", :slow do
-  before { EdgecastWrapper.stub(:remove_log_file) { true } }
+  let(:scaler) { mock(Autoscaler::HerokuScaler, :workers= => true) }
+  before {
+    EdgecastWrapper.stub(:remove_log_file) { true }
+    Autoscaler::HerokuScaler.stub(:new) { scaler }
+  }
 
   it "fetches logs, store, read and parse them" do
     LogsCreatorWorker.perform_async

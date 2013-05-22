@@ -4,10 +4,25 @@ class LogReaderWorker
   include Sidekiq::Worker
   sidekiq_options queue: 'logs'
 
-  attr_accessor :log, :index
+  attr_accessor :log, :scaler, :index
 
   def perform(log_id)
-    @log   = Log.find(log_id)
+    @log = Log.find(log_id)
+    @scaler = Autoscaler::HerokuScaler.new
+    _with_blocked_queue { _read_log }
+  end
+
+  private
+
+  def _with_blocked_queue
+    Sidekiq::Queue['logs'].block
+    scaler.workers = 1
+    yield
+    scaler.workers = 5
+    Sidekiq::Queue['logs'].unblock
+  end
+
+  def _read_log
     _log_lines do |line|
       LogLineParserWorker.perform_async(line)
     end
@@ -15,8 +30,6 @@ class LogReaderWorker
   ensure
     log.update_attribute(:read_lines, index)
   end
-
-  private
 
   def _log_lines
     @index = -1 # skip header

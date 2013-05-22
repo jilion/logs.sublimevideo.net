@@ -3,16 +3,32 @@ require 'spec_helper'
 describe LogReaderWorker do
   let(:log) { build_stubbed(:log) }
   let(:worker) { LogReaderWorker.new }
-
   it "delays job in stats queue" do
     LogReaderWorker.sidekiq_options_hash['queue'].should eq 'logs'
   end
 
   describe "#perform" do
+    let(:scaler) { mock(Autoscaler::HerokuScaler, :workers= => true) }
+    let(:queue) { mock(Sidekiq::Queue, block: true, unblock: true) }
+
     before {
       Log.stub(:find) { log }
       log.stub(:update_attribute)
+      Autoscaler::HerokuScaler.stub(:new) { scaler }
+      Sidekiq::Queue.stub(:[]) { queue }
     }
+
+    it "blocks and unblocks logs queue during performing" do
+      queue.should_receive(:block)
+      queue.should_receive(:unblock)
+      worker.perform(log.id)
+    end
+
+    it "scales heroku worker down to 1 and up to 5 after" do
+      scaler.should_receive(:workers=).with(1)
+      scaler.should_receive(:workers=).with(5)
+      worker.perform(log.id)
+    end
 
     it "reads each line of logs and delay parsing" do
       LogLineParserWorker.should_receive(:perform_async).exactly(9).times
