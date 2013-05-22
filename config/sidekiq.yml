@@ -1,4 +1,0 @@
-:concurrency: 20
-:queues:
-  - logs
-  - logs-parser
