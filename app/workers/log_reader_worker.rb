@@ -2,7 +2,7 @@ require 'sidekiq'
 
 class LogReaderWorker
   include Sidekiq::Worker
-  sidekiq_options queue: 'logs-reader'
+  sidekiq_options queue: 'logs'
 
   attr_accessor :log, :index
 

@@ -13,8 +13,6 @@ end
 
 if Rails.env.production?
   require 'sidekiq/limit_fetch'
-  Sidekiq::Queue['logs-reader'].block # Blocks logs queue during log reading
-
   require 'autoscaler/sidekiq'
   require 'autoscaler/heroku_scaler'
   scaler = Autoscaler::HerokuScaler.new
@@ -35,18 +33,18 @@ if Rails.env.production?
 
   Sidekiq.configure_client do |config|
     config.client_middleware do |chain|
-      chain.add Autoscaler::Sidekiq::Client, 'logs-reader' => scaler
-      chain.add Autoscaler::Sidekiq::CustomClient, 'logs' => scaler
+      chain.add Autoscaler::Sidekiq::Client, 'logs' => scaler
+      chain.add Autoscaler::Sidekiq::CustomClient, 'logs-parser' => scaler
     end
   end
 
   Sidekiq.configure_server do |config|
     config.client_middleware do |chain|
-      chain.add Autoscaler::Sidekiq::Client, 'logs-reader' => scaler
-      chain.add Autoscaler::Sidekiq::CustomClient, 'logs' => scaler
+      chain.add Autoscaler::Sidekiq::Client, 'logs' => scaler
+      chain.add Autoscaler::Sidekiq::CustomClient, 'logs-parser' => scaler
     end
     config.server_middleware do |chain|
-      chain.add Autoscaler::Sidekiq::Server, scaler, 10, %w[logs logs-reader]
+      chain.add Autoscaler::Sidekiq::Server, scaler, 10, %w[logs logs-parser]
     end
   end
 end

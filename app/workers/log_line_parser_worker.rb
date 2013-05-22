@@ -3,7 +3,7 @@ require 'sidekiq'
 
 class LogLineParserWorker
   include Sidekiq::Worker
-  sidekiq_options queue: 'logs'
+  sidekiq_options queue: 'logs-parser'
 
   attr_accessor :parsed_line
 
