@@ -11,7 +11,7 @@ require "active_record/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.setup(:default, Rails.env)
 
-require 'dotenv-rails'
+require 'dotenv-rails' unless Rails.env.production?
 require 'librato-rails'
 require 'newrelic_rpm'
 
