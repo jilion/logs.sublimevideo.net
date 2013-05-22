@@ -18,8 +18,8 @@ class LogReaderWorker
     Sidekiq::Queue['logs'].block
     scaler.workers = 1
     yield
-    Sidekiq::Queue['logs'].unblock
     scaler.workers = 5
+    Sidekiq::Queue['logs'].unblock
   end
 
   def _read_log
