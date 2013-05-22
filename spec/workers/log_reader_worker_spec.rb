@@ -26,7 +26,7 @@ describe LogReaderWorker do
 
     it "scales heroku worker down to 1 and up to 4 after" do
       scaler.should_receive(:workers=).with(1)
-      scaler.should_receive(:workers=).with(4)
+      scaler.should_receive(:workers=).with(5)
       worker.perform(log.id)
     end
 
