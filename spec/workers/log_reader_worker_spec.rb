@@ -26,12 +26,12 @@ describe LogReaderWorker do
 
     it "scales heroku worker down to 1 and up to 4 after" do
       scaler.should_receive(:workers=).with(1)
-      scaler.should_receive(:workers=).with(5)
+      scaler.should_receive(:workers=).with(2)
       worker.perform(log.id)
     end
 
-    it "reads each line of logs and delay parsing" do
-      LogLineParserWorker.should_receive(:perform_async).exactly(9).times
+    it "reads each line of logs and delay gif request parsing" do
+      LogLineParserWorker.should_receive(:perform_async).exactly(1).times
       worker.perform(log.id)
     end
 
@@ -54,13 +54,13 @@ describe LogReaderWorker do
 
     it "updates read_lines when failed" do
       LogLineParserWorker.stub(:perform_async).and_raise
-      log.should_receive(:update_attribute).with(:read_lines, 0)
+      log.should_receive(:update_attribute).with(:read_lines, 8)
       expect { worker.perform(log.id) }.to raise_error
     end
 
     it "skips alreay read lines" do
       log.stub(:read_lines) { 5 }
-      LogLineParserWorker.should_receive(:perform_async).exactly(4).times
+      LogLineParserWorker.should_receive(:perform_async).exactly(1).times
       worker.perform(log.id)
     end
   end

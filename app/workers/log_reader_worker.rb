@@ -9,7 +9,7 @@ class LogReaderWorker
   def perform(log_id)
     @log = Log.find(log_id)
     @scaler = Autoscaler::HerokuScaler.new
-    _with_blocked_queue { _read_log }
+    _with_blocked_queue { _read_log_and_delay_gif_requests_parsing }
   end
 
   private
@@ -18,25 +18,29 @@ class LogReaderWorker
     Sidekiq::Queue['logs'].block
     scaler.workers = 1
     yield
-    scaler.workers = 5
+    scaler.workers = 2
     Sidekiq::Queue['logs'].unblock
   end
 
-  def _read_log
-    _log_lines do |line|
-      LogLineParserWorker.perform_async(line)
-    end
+  def _read_log_and_delay_gif_requests_parsing
+    _gif_request_lines { |line| LogLineParserWorker.perform_async(line) }
     log.touch(:read_at)
   ensure
     log.update_attribute(:read_lines, index)
   end
 
-  def _log_lines
+  def _gif_request_lines
     @index = -1 # skip header
     _gzip_lines do |line|
-      yield(line) if index >= log.read_lines
+      if index >= log.read_lines && _gif_request?(line)
+        yield(line)
+      end
       @index += 1
     end
+  end
+
+  def _gif_request?(line)
+    line.include?('//cdn.sublimevideo.net/_.gif?i=')
   end
 
   def _gzip_lines
