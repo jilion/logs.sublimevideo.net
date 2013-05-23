@@ -8,25 +8,17 @@ describe LogReaderWorker do
   end
 
   describe "#perform" do
-    let(:scaler) { mock(Autoscaler::HerokuScaler, :workers= => true) }
     let(:queue) { mock(Sidekiq::Queue, block: true, unblock: true) }
 
     before {
       Log.stub(:find) { log }
       log.stub(:update_attribute)
-      Autoscaler::HerokuScaler.stub(:new) { scaler }
       Sidekiq::Queue.stub(:[]) { queue }
     }
 
     it "blocks and unblocks logs queue during performing" do
       queue.should_receive(:block)
       queue.should_receive(:unblock)
-      worker.perform(log.id)
-    end
-
-    it "scales heroku worker down to 1 and up to 4 after" do
-      scaler.should_receive(:workers=).with(1)
-      scaler.should_receive(:workers=).with(2)
       worker.perform(log.id)
     end
 

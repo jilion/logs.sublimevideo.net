@@ -4,11 +4,10 @@ class LogReaderWorker
   include Sidekiq::Worker
   sidekiq_options queue: 'logs'
 
-  attr_accessor :log, :scaler, :index
+  attr_accessor :log, :index
 
   def perform(log_id)
     @log = Log.find(log_id)
-    @scaler = Autoscaler::HerokuScaler.new
     _with_blocked_queue { _read_log_and_delay_gif_requests_parsing }
   end
 
@@ -16,9 +15,7 @@ class LogReaderWorker
 
   def _with_blocked_queue
     Sidekiq::Queue['logs'].block
-    scaler.workers = 1
     yield
-    scaler.workers = 2
     Sidekiq::Queue['logs'].unblock
   end
 
