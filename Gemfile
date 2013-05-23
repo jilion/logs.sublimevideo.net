@@ -20,6 +20,7 @@ gem 'librato-sidekiq'
 gem 'newrelic_rpm'
 
 gem 'net-sftp'
+gem 'rescue_me'
 
 group :development, :test do
   gem 'rspec-rails'

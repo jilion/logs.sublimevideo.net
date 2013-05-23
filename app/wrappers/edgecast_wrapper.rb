@@ -1,21 +1,22 @@
 require 'tempfile'
 require 'net/sftp'
+require 'rescue_me'
 
 class EdgecastWrapper
   RSYNC_SERVER = 'rsync.lax.edgecastcdn.net'
   LOGS_PATH = ENV['EDGECAST_LOGS_PATH']
 
   def self.logs_filename
-    _sftp.dir.glob(LOGS_PATH, '*.gz').map(&:name).sort
+    rescue_and_retry(4) { _sftp.dir.glob(LOGS_PATH, '*.gz').map(&:name).sort }
   end
 
   def self.log_file(filename)
-    sftp_file = _sftp.file.open(_log_path(filename), "r")
-    LogFile.open!(filename, sftp_file.read) { |log_file| yield(log_file) }
+    rescue_and_retry(4) { @sftp_file = _sftp.file.open(_log_path(filename), "r") }
+    LogFile.open!(filename, @sftp_file.read) { |log_file| yield(log_file) }
   end
 
   def self.remove_log_file(filename)
-    _sftp.remove!(_log_path(filename))
+    rescue_and_retry(4) { _sftp.remove!(_log_path(filename)) }
   end
 
   private
