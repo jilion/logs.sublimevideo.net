@@ -33,9 +33,7 @@ doc/js/
 vendor/ruby
 vendor/bundler
 !.bundle
-.env*
-!.env.test
-!.env.development
+!.env
 uploads
 *.sublime-project
 !.sublime-project
