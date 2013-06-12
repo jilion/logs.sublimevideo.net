@@ -100,7 +100,7 @@ GEM
       multi_json
     librato-sidekiq (0.1.2)
       sidekiq
-    listen (1.2.0)
+    listen (1.2.1)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
