@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Logs creation", :slow do
+describe "Logs creation", :slow, :redis do
   let(:scaler) { mock(Autoscaler::HerokuScaler, :workers= => true) }
   before {
     EdgecastWrapper.stub(:remove_log_file) { true }
