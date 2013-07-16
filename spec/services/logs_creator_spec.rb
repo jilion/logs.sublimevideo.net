@@ -3,7 +3,7 @@ require 'spec_helper'
 describe LogsCreator do
   let(:log_filename) { 'wac_841C_20130420_0050.log.gz' }
   let(:log_file) { fixture_file(log_filename) }
-  let(:log) { mock(Log, id: 1) }
+  let(:log) { double(Log, id: 1) }
 
   describe ".shift_and_create_logs" do
     before {

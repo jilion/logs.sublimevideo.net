@@ -8,7 +8,7 @@ describe LogReaderWorker do
   end
 
   describe "#perform" do
-    let(:queue) { mock(Sidekiq::Queue, block: true, unblock: true) }
+    let(:queue) { double(Sidekiq::Queue, block: true, unblock: true) }
 
     before {
       Log.stub(:find) { log }

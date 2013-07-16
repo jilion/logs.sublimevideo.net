@@ -12,7 +12,7 @@ describe LogLineParserWorker do
     before { LogLineParser.stub(:new) { parsed_line } }
 
     context "with data request line" do
-      let(:parsed_line) { mock(LogLineParser,
+      let(:parsed_line) { double(LogLineParser,
         site_token: 'site_token',
         timestamp:  1366466401,
         user_agent: 'user agent',
@@ -31,7 +31,7 @@ describe LogLineParserWorker do
     end
 
     context "with non data request line" do
-      let(:parsed_line) { mock(LogLineParser, data_request?: false) }
+      let(:parsed_line) { double(LogLineParser, data_request?: false) }
 
       it "does nothing" do
         StatsHandlerWorker.should_not_receive(:perform_async)
