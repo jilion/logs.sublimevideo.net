@@ -15,7 +15,7 @@ gem 'sidekiq-limit_fetch'
 gem 'autoscaler'
 
 gem 'honeybadger'
-gem 'librato-rails', github: 'librato/librato-rails', branch: 'feature/rack_first'
+gem 'librato-rails'
 gem 'librato-sidekiq'
 gem 'newrelic_rpm'
 
@@ -28,12 +28,12 @@ group :development, :test do
 end
 
 group :development do
-  gem 'annotate'
-  gem 'foreman'
+  gem 'annotate', require: false
+  gem 'foreman', require: false
 
   # Guard
-  gem 'ruby_gntp'
-  gem 'guard-rspec'
+  gem 'ruby_gntp', require: false
+  gem 'guard-rspec', require: false
 end
 
 group :test do

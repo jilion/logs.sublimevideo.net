@@ -5,6 +5,10 @@ describe "Logs creation", :slow, :redis do
   before {
     EdgecastWrapper.stub(:remove_log_file) { true }
     Autoscaler::HerokuScaler.stub(:new) { scaler }
+    LogsCreatorWorker.jobs.clear
+    LogReaderWorker.jobs.clear
+    LogLineParserWorker.jobs.clear
+    StatsHandlerWorker.jobs.clear
   }
 
   it "fetches logs, store, read and parse them" do
