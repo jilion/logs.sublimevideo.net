@@ -6,6 +6,7 @@ class Log < ActiveRecord::Base
   def log_file
     LogFile.open!(name, file.file.read) { |log_file| yield(log_file) }
   end
+
 end
 
 # == Schema Information

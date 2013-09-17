@@ -1,4 +1,5 @@
-require 'sidekiq'
+require 'autoscaler/sidekiq'
+require 'autoscaler/heroku_scaler'
 
 Sidekiq.configure_server do |config|
   if database_url = ENV['DATABASE_URL']

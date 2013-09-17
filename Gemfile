@@ -7,7 +7,7 @@ gem 'rails', '4.0.0'
 gem 'pg'
 gem 'oj'
 
-gem 'carrierwave'
+gem 'carrierwave', require: ['carrierwave', 'carrierwave/orm/activerecord']
 gem 'fog'
 
 gem 'sidekiq'
@@ -17,10 +17,15 @@ gem 'autoscaler'
 gem 'honeybadger'
 gem 'librato-rails'
 gem 'librato-sidekiq'
-gem 'newrelic_rpm'
 
-gem 'net-sftp'
+gem 'net-sftp', require: 'net/sftp'
 gem 'rescue_me'
+
+group :staging, :production do
+  gem 'newrelic_rpm'
+  gem 'newrelic-redis'
+  gem 'rails_12factor'
+end
 
 group :development, :test do
   gem 'rspec-rails'

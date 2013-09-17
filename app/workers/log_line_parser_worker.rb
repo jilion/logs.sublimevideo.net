@@ -1,6 +1,3 @@
-require 'zlib'
-require 'sidekiq'
-
 class LogLineParserWorker
   include Sidekiq::Worker
   sidekiq_options queue: 'logs-parser'

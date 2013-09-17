@@ -1,7 +1,3 @@
-require 'tempfile'
-require 'net/sftp'
-require 'rescue_me'
-
 class EdgecastWrapper
   RSYNC_SERVER = 'rsync.lax.edgecastcdn.net'
   LOGS_PATH = ENV['EDGECAST_LOGS_PATH']

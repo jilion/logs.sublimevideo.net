@@ -1,5 +1,3 @@
-require 'sidekiq'
-
 class LogsCreatorWorker
   include Sidekiq::Worker
   sidekiq_options queue: 'logs'

@@ -9,16 +9,7 @@ require "active_record/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.setup(:default, Rails.env)
-
-require 'dotenv-rails' if Rails.env.in?(%w[test development])
-require 'librato-rails'
-require 'newrelic_rpm'
-
-require 'sidekiq'
-require 'sidekiq/limit_fetch'
-require 'autoscaler/sidekiq'
-require 'autoscaler/heroku_scaler'
+Bundler.require(:default, Rails.env)
 
 module LogsSublimeVideo
   class Application < Rails::Application

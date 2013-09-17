@@ -1,5 +1,3 @@
-require 'sidekiq'
-
 class StatsHandlerWorker
   include Sidekiq::Worker
   sidekiq_options queue: 'stats'

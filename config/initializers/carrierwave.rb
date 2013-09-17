@@ -1,6 +1,3 @@
-require 'carrierwave'
-require 'carrierwave/orm/activerecord'
-
 module CarrierWave
   class << self
     def fog_configuration

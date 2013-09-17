@@ -1,6 +1,7 @@
 require 'sidekiq'
 require 'sidekiq/testing'
-require 'redis'
+
+Sidekiq.logger.level = Logger::WARN
 
 RSpec.configure do |config|
   config.before :each, redis: true do

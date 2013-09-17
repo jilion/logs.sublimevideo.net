@@ -10,16 +10,17 @@ describe LogsCreator do
       EdgecastWrapper.stub(:logs_filename) { [log_filename] }
       EdgecastWrapper.stub(:log_file).with(log_filename).and_yield(log_file)
       EdgecastWrapper.stub(:remove_log_file).with(log_filename)
-      Log.stub(:create!) { log }
+      Log.stub(:create) { true }
+      Log.stub_chain(:where, :first) { log }
       LogReaderWorker.stub(:perform_async)
     }
 
-    it "create log with file" do
-      Log.should_receive(:create!).with(
+    it "creates log with file" do
+      Log.should_receive(:create).with(
         name: log_filename,
         provider: 'edgecast',
         file: log_file
-      ) { log }
+      )
       LogsCreator.shift_and_create_logs
     end
 
@@ -31,6 +32,20 @@ describe LogsCreator do
     it "removes log file" do
       EdgecastWrapper.should_receive(:remove_log_file).with(log_filename)
       LogsCreator.shift_and_create_logs
+    end
+
+    context "with already the same existing log" do
+      before { Log.stub(:create) { false } }
+
+      it "still delays log reading" do
+        LogReaderWorker.should_receive(:perform_async).with(log.id)
+        LogsCreator.shift_and_create_logs
+      end
+
+      it "still removes log file" do
+        EdgecastWrapper.should_receive(:remove_log_file).with(log_filename)
+        LogsCreator.shift_and_create_logs
+      end
     end
   end
 end

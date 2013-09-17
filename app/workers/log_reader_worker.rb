@@ -1,4 +1,4 @@
-require 'sidekiq'
+require 'zlib'
 
 class LogReaderWorker
   include Sidekiq::Worker
