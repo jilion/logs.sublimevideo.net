@@ -123,7 +123,7 @@ GEM
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     oj (2.1.4)
-    pg (0.16.0)
+    pg (0.17.0)
     polyglot (0.3.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
