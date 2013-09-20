@@ -16,7 +16,7 @@ describe LogsCreator do
     }
 
     it "creates log with file" do
-      Log.should_receive(:create).with(
+      expect(Log).to receive(:create).with(
         name: log_filename,
         provider: 'edgecast',
         file: log_file
@@ -25,12 +25,12 @@ describe LogsCreator do
     end
 
     it "delays log reading" do
-      LogReaderWorker.should_receive(:perform_async).with(log.id)
+      expect(LogReaderWorker).to receive(:perform_async).with(log.id)
       LogsCreator.shift_and_create_logs
     end
 
     it "removes log file" do
-      EdgecastWrapper.should_receive(:remove_log_file).with(log_filename)
+      expect(EdgecastWrapper).to receive(:remove_log_file).with(log_filename)
       LogsCreator.shift_and_create_logs
     end
 
@@ -38,12 +38,12 @@ describe LogsCreator do
       before { Log.stub(:create) { false } }
 
       it "still delays log reading" do
-        LogReaderWorker.should_receive(:perform_async).with(log.id)
+        expect(LogReaderWorker).to receive(:perform_async).with(log.id)
         LogsCreator.shift_and_create_logs
       end
 
       it "still removes log file" do
-        EdgecastWrapper.should_receive(:remove_log_file).with(log_filename)
+        expect(EdgecastWrapper).to receive(:remove_log_file).with(log_filename)
         LogsCreator.shift_and_create_logs
       end
     end

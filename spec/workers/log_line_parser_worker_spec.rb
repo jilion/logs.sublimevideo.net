@@ -4,7 +4,7 @@ describe LogLineParserWorker do
   let(:worker) { LogLineParserWorker.new }
 
   it "delays job in stats queue" do
-    LogLineParserWorker.sidekiq_options_hash['queue'].should eq 'logs-parser'
+    expect(LogLineParserWorker.sidekiq_options_hash['queue']).to eq 'logs-parser'
   end
 
   describe "#perform" do
@@ -24,8 +24,8 @@ describe LogLineParserWorker do
       }
 
       it "delays stats handling for each event" do
-        StatsHandlerWorker.should_receive(:perform_async).with('al', 'foo' => 'bar', 's' => 'site_token', 't' => 1366466401, 'ua' => 'user agent', 'ip' => '176.206.33.0')
-        StatsHandlerWorker.should_receive(:perform_async).with('l',  'foo' => 'bar', 's' => 'site_token', 't' => 1366466401, 'ua' => 'user agent', 'ip' => '176.206.33.0')
+        expect(StatsHandlerWorker).to receive(:perform_async).with('al', 'foo' => 'bar', 's' => 'site_token', 't' => 1366466401, 'ua' => 'user agent', 'ip' => '176.206.33.0')
+        expect(StatsHandlerWorker).to receive(:perform_async).with('l',  'foo' => 'bar', 's' => 'site_token', 't' => 1366466401, 'ua' => 'user agent', 'ip' => '176.206.33.0')
         worker.perform(line)
       end
     end
@@ -34,7 +34,7 @@ describe LogLineParserWorker do
       let(:parsed_line) { double(LogLineParser, data_request?: false) }
 
       it "does nothing" do
-        StatsHandlerWorker.should_not_receive(:perform_async)
+        expect(StatsHandlerWorker).to_not receive(:perform_async)
         worker.perform(line)
       end
     end

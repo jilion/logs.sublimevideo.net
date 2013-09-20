@@ -14,11 +14,11 @@ describe "Logs creation", :slow, :redis do
   it "fetches logs, store, read and parse them" do
     LogsCreatorWorker.perform_async
     LogsCreatorWorker.drain
-    Log.should have(2).logs
-    LogReaderWorker.should have(2).jobs
+    expect(Log).to have(2).logs
+    expect(LogReaderWorker).to have(2).jobs
     LogReaderWorker.drain
-    LogLineParserWorker.should have(1).jobs
+    expect(LogLineParserWorker).to have(1).jobs
     LogLineParserWorker.drain
-    StatsHandlerWorker.should have(2).jobs
+    expect(StatsHandlerWorker).to have(2).jobs
   end
 end

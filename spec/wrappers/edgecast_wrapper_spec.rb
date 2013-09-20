@@ -6,16 +6,16 @@ describe EdgecastWrapper, :slow do
 
   describe ".logs_filename" do
     it "yields log_filename" do
-      EdgecastWrapper.logs_filename.first.should eq log_filename
+      expect(EdgecastWrapper.logs_filename.first).to eq log_filename
     end
   end
 
   describe ".log_file" do
     it "downloads log file" do
       EdgecastWrapper.log_file(log_filename) do |file|
-        file.should be_kind_of(LogFile)
-        file.size.should eq log_file.size
-        file.path.to_s.should end_with log_filename
+        expect(file).to be_kind_of(LogFile)
+        expect(file.size).to eq log_file.size
+        expect(file.path.to_s).to end_with log_filename
       end
     end
   end
@@ -24,7 +24,7 @@ describe EdgecastWrapper, :slow do
   pending ".remove_log_file" do
     it "removes log file data" do
       file = EdgecastWrapper.remove_log_file(log_filename)
-      EdgecastWrapper.logs_filename.should be_empty
+      expect(EdgecastWrapper.logs_filename).to be_empty
     end
   end
 end

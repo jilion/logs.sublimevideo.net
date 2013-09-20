@@ -17,14 +17,14 @@ describe Log do
   it "support log file via carrierwave" do
     log_id = log.id
     log = Log.find(log_id)
-    log.file.size.should eq log_file.size
+    expect(log.file.size).to eq log_file.size
   end
 
   describe "#log_file" do
     it "returns log file" do
       log.log_file do |file|
-        file.should be_kind_of(LogFile)
-        file.size.should eq log_file.size
+        expect(file).to be_kind_of(LogFile)
+        expect(file.size).to eq log_file.size
       end
     end
   end

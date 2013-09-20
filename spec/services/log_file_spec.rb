@@ -9,7 +9,7 @@ describe LogFile do
   describe ".open!" do
     it "yields with the log file" do
       LogFile.open!(name, content) do |file|
-        file.read.should eq content
+        expect(file.read).to eq content
       end
     end
 
@@ -17,14 +17,14 @@ describe LogFile do
       LogFile.open!(name, content) do |file|
         @file = file
       end
-      File.exists?(@file.path).should be_false
+      expect(File.exists?(@file.path)).to be_false
     end
 
     it "returns block result" do
       result = LogFile.open!(name, content) do |file|
         42
       end
-      result.should eq 42
+      expect(result).to eq 42
     end
   end
 end
