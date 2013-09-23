@@ -9,7 +9,7 @@ class LogLineParserWorker
     return unless parsed_line.data_request?
 
     _events do |event_key, data|
-      StatsHandlerWorker.perform_async(event_key, data)
+      _delay_stats_handling(event_key, data)
     end
   end
 
@@ -29,4 +29,10 @@ class LogLineParserWorker
       'ua' => parsed_line.user_agent,
       'ip' => parsed_line.ip }
   end
+
+  def _delay_stats_handling(event_key, data)
+    stats_handler_class = data['sa'] ? StatsWithAddonHandlerWorker : StatsWithoutAddonHandlerWorker
+    stats_handler_class.perform_async(event_key, data)
+  end
+
 end

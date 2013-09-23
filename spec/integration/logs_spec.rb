@@ -8,7 +8,7 @@ describe "Logs creation", :slow, :redis do
     LogsCreatorWorker.jobs.clear
     LogReaderWorker.jobs.clear
     LogLineParserWorker.jobs.clear
-    StatsHandlerWorker.jobs.clear
+    StatsWithoutAddonHandlerWorker.jobs.clear
   }
 
   it "fetches logs, store, read and parse them" do
@@ -19,6 +19,6 @@ describe "Logs creation", :slow, :redis do
     LogReaderWorker.drain
     expect(LogLineParserWorker).to have(1).jobs
     LogLineParserWorker.drain
-    expect(StatsHandlerWorker).to have(2).jobs
+    expect(StatsWithoutAddonHandlerWorker).to have(2).jobs
   end
 end
