@@ -37,7 +37,7 @@ class LogReaderWorker
   end
 
   def _gif_request?(line)
-    line.include?('//cdn.sublimevideo.net/_.gif?i=')
+    line.include?('//cdn.sublimevideo.net/_.gif?')
   end
 
   def _gzip_lines
