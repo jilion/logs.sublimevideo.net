@@ -11,6 +11,8 @@ class EdgecastWrapper
       sftp_file = _sftp.file.open(_log_path(filename), "r")
       LogFile.open!(filename, sftp_file.read) { |log_file| yield(log_file) }
     end
+  rescue
+    yield(nil)
   end
 
   def self.remove_log_file(filename)
