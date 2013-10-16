@@ -3,11 +3,11 @@ class EdgecastWrapper
   LOGS_PATH = ENV['EDGECAST_LOGS_PATH']
 
   def self.logs_filename
-    rescue_and_retry(5) { _sftp.dir.glob(LOGS_PATH, '*.gz').map(&:name).sort }
+    _retry { _sftp.dir.glob(LOGS_PATH, '*.gz').map(&:name).sort }
   end
 
   def self.log_file(filename)
-    rescue_and_retry(5) do
+    _retry do
       sftp_file = _sftp.file.open(_log_path(filename), "r")
       LogFile.open!(filename, sftp_file.read) { |log_file| yield(log_file) }
     end
@@ -16,10 +16,15 @@ class EdgecastWrapper
   end
 
   def self.remove_log_file(filename)
-    rescue_and_retry(5) { _sftp.remove!(_log_path(filename)) }
+    _retry { _sftp.remove!(_log_path(filename)) }
   end
 
   private
+
+  def self._retry
+    rescue_and_retry(7) { yield }
+  rescue
+  end
 
   def self._log_path(filename)
     "#{LOGS_PATH}/#{filename}"
