@@ -14,6 +14,7 @@ describe LogLineParserWorker do
     context "with data request line" do
       let(:parsed_line) { double(LogLineParser,
         site_token: 'site_token',
+        player_version: '2.5.33',
         timestamp:  1366466401,
         user_agent: 'user agent',
         ip:         '176.206.33.0',

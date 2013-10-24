@@ -9,6 +9,7 @@ class LogLineParserWorker
     return unless parsed_line.data_request?
 
     _events do |event_key, data|
+      _increment_metrics(event_key)
       _delay_stats_handling(event_key, data)
     end
   end
@@ -33,6 +34,15 @@ class LogLineParserWorker
   def _delay_stats_handling(event_key, data)
     stats_handler_class = data['sa'] ? StatsWithAddonHandlerWorker : StatsWithoutAddonHandlerWorker
     stats_handler_class.perform_async(event_key, data)
+  end
+
+  def _increment_metrics(event_key)
+    Librato.increment "logs.event_type", source: event_key
+    Librato.increment "logs.player_version", source: parsed_line.player_version
+    case event_key
+    when 'l' then Librato.increment "temp.loads.#{parsed_line.player_version}", source: 'new'
+    when 's' then Librato.increment "temp.starts.#{parsed_line.player_version}", source: 'new'
+    end
   end
 
 end

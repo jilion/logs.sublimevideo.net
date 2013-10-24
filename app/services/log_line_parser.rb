@@ -52,15 +52,23 @@ class LogLineParser
   end
 
   def data_request?
-    @data_request ||= uri_stem.include?('//cdn.sublimevideo.net/_.gif') && method == 'GET' && _params.key?('s')
+    @data_request ||= uri_stem.include?('//cdn.sublimevideo.net/_.gif') && %w[GET HEAD].include?(method) && _params.key?('s')
   end
 
   def site_token
     _params['s'].first
   end
 
+  def player_version
+    _params['v'].first || 'none'
+  end
+
   def data
-    MultiJson.load(_params['d'].first)
+    json = _params['d'].first
+    MultiJson.load(json)
+  rescue => ex
+    Honeybadger.notify_or_ignore(ex, context: { 'data' => json })
+    []
   end
 
   private
