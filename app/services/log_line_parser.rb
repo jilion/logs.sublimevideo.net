@@ -40,7 +40,7 @@ class LogLineParser
   end
 
   def method
-    _scan[8]
+    _scan[8].upcase
   end
 
   def uri_stem
