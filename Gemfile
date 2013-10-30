@@ -39,7 +39,6 @@ group :development do
   # Guard
   gem 'ruby_gntp', require: false
   gem 'guard-rspec', require: false
-  gem 'guard', '>= 2.0.0.pre.2', require: false
 end
 
 group :test do
