@@ -8,12 +8,9 @@ describe LogReaderWorker do
   end
 
   describe "#perform" do
-    let(:queue) { double(Sidekiq::Queue, block: true, unblock: true) }
-
     before {
       Log.stub(:find) { log }
       log.stub(:update_attribute)
-      Sidekiq::Queue.stub(:[]) { queue }
     }
 
     it "reads each line of logs and delay gif request parsing" do
