@@ -1,6 +1,6 @@
 class LogLineParserWorker
   include Sidekiq::Worker
-  sidekiq_options queue: 'logs-parser'
+  sidekiq_options queue: 'logs'
 
   attr_accessor :parsed_line
 

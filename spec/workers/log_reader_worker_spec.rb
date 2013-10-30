@@ -16,12 +16,6 @@ describe LogReaderWorker do
       Sidekiq::Queue.stub(:[]) { queue }
     }
 
-    it "blocks and unblocks logs queue during performing" do
-      expect(queue).to receive(:block)
-      expect(queue).to receive(:unblock)
-      worker.perform(log.id)
-    end
-
     it "reads each line of logs and delay gif request parsing" do
       expect(LogLineParserWorker).to receive(:perform_async).exactly(1).times
       worker.perform(log.id)

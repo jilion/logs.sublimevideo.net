@@ -8,16 +8,10 @@ class LogReaderWorker
 
   def perform(log_id)
     @log = Log.find(log_id)
-    _with_blocked_queue { _read_log_and_delay_gif_requests_parsing }
+     _read_log_and_delay_gif_requests_parsing
   end
 
   private
-
-  def _with_blocked_queue
-    Sidekiq::Queue['logs'].block
-    yield
-    Sidekiq::Queue['logs'].unblock
-  end
 
   def _read_log_and_delay_gif_requests_parsing
     _gif_request_lines { |line| LogLineParserWorker.perform_async(line) }

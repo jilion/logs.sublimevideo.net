@@ -4,7 +4,7 @@ describe LogLineParserWorker do
   let(:worker) { LogLineParserWorker.new }
 
   it "delays job in stats queue" do
-    expect(LogLineParserWorker.sidekiq_options_hash['queue']).to eq 'logs-parser'
+    expect(LogLineParserWorker.sidekiq_options_hash['queue']).to eq 'logs'
   end
 
   describe "#perform" do

@@ -9,10 +9,9 @@ gem 'oj'
 
 gem 'carrierwave', require: ['carrierwave', 'carrierwave/orm/activerecord']
 gem 'fog'
+gem 'unf'
 
 gem 'sidekiq'
-gem 'sidekiq-limit_fetch'
-gem 'autoscaler'
 
 gem 'honeybadger'
 gem 'librato-rails'
