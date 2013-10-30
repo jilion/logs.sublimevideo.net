@@ -32,7 +32,7 @@ doc/js/
 .sass-cache/
 vendor/ruby
 vendor/bundler
-!.bundle
+!.bundle/config
 !.env
 uploads
 *.sublime-project
