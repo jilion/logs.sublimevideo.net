@@ -39,10 +39,6 @@ class LogLineParserWorker
   def _increment_metrics(event_key)
     Librato.increment "logs.event_type", source: event_key
     Librato.increment "logs.player_version", source: parsed_line.player_version
-    case event_key
-    when 'l' then Librato.increment "temp.loads.#{parsed_line.player_version}", source: 'new'
-    when 's' then Librato.increment "temp.starts.#{parsed_line.player_version}", source: 'new'
-    end
   end
 
 end
